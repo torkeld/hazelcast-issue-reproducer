@@ -28,6 +28,6 @@ public class Data implements Serializable{
 
     @Override
     public String toString() {
-        return attr1 + " " + attr2;
+        return "[" + attr1 + " " + attr2 + "]";
     }
 }
