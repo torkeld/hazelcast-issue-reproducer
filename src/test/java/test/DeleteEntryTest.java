@@ -87,8 +87,8 @@ public class DeleteEntryTest {
     }
 
     /**
-     * Same as above but executes the delete processor on key instead of predicate.
-     * Triggers the same bug in a different class
+     * Reproducer for https://github.com/hazelcast/hazelcast/issues/1854
+     * Similar to above tests but with executeOnKeys instead.
      */
     @Test
     public void testExecuteOnKeys() {
@@ -123,7 +123,8 @@ public class DeleteEntryTest {
     }
 
     /**
-     * 
+     * Reproducer for https://github.com/hazelcast/hazelcast/issues/1854
+     * This one with index which results in an exception.
      */
     @Test
     public void testExecuteOnKeysIndexed() throws Exception {
