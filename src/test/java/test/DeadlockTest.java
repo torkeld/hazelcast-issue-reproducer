@@ -16,6 +16,13 @@ import com.hazelcast.core.IMap;
 import com.hazelcast.map.EntryBackupProcessor;
 import com.hazelcast.map.EntryProcessor;
 
+/**
+ * Reproducer for deadlock when executing an entry processor on a different map within an entry processor.
+ * See detailed describtion below.
+ * 
+ * @author tdominique
+ *
+ */
 public class DeadlockTest {
 
     private static void log(String msg) {
