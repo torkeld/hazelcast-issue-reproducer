@@ -46,7 +46,7 @@ public class MapLoadTest implements MapLoader<PartitionAwareKey<String, String>,
     }
 
     /**
-     * This tests tries to get an entry that doesn't exist in the map with a MapLoader that takes time. 
+     * This test tries to get an entry that doesn't exist in the map with a MapLoader that takes some time. 
      * At the same time trying to get another existing entry in the same partition.
      * According to the documentation the map loader should run in a different thread than the partition thread
      * and not block the entire partition while loading one entry.
