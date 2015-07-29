@@ -59,18 +59,17 @@ public class MapLoadTest implements MapLoader<PartitionAwareKey<String, String>,
         cfg.getNetworkConfig().getInterfaces().setInterfaces(Arrays.asList("127.0.0.1")).setEnabled(true);
         final HazelcastInstance instance1 = Hazelcast.newHazelcastInstance(cfg);
         final IMap<PartitionAwareKey<String, String>, String> map1 = instance1.getMap("test");
-        map1.putTransient(new PartitionAwareKey<>("a", "p"), "A", 0, TimeUnit.SECONDS);
+        map1.putTransient(new PartitionAwareKey<>("a", "p1"), "A", 0, TimeUnit.SECONDS);
         //Entry "a" now exists in the map. Try to get "b", which will trigger the map loader, and then get "a"
         // in two different threads.
         final ExecutorService executor = Executors.newFixedThreadPool(2);
-        final Future<String> futureB = executor.submit(() -> map1.get(new PartitionAwareKey<>("b", "p")));
-        final Future<String> futureA = executor.submit(() -> map1.get(new PartitionAwareKey<>("a", "p")));
+        final Future<String> futureB = executor.submit(() -> map1.get(new PartitionAwareKey<>("b", "p1")));
+        final Future<String> futureA = executor.submit(() -> map1.get(new PartitionAwareKey<>("a", "p1")));
         System.out.println("submitted get jobs.");
         Thread.sleep(10);
         System.out.println("Now let's see if they're done.");
         assertTrue("What? Getting \"a\" is not done after 10ms. This is very bad!", futureA.isDone());
         assertEquals("A", futureA.get());
-        assertTrue(futureB.isDone());
         assertEquals("whatever", futureB.get());
     }
 
